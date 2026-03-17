@@ -56,7 +56,7 @@ Edit `.env` if needed:
 | Variable | Default | Description |
 |----------|---------|-------------|
 | `OLLAMA_BASE_URL` | `http://localhost:11434` | Ollama API URL |
-| `OLLAMA_MODEL` | `llama3.1:8b` | LLM model for generation |
+| `OLLAMA_MODEL` | `llama3.1:latest` | LLM model for generation |
 | `OLLAMA_EMBEDDING_MODEL` | `nomic-embed-text` | Embedding model |
 | `SERVER_PORT` | `4000` | Express API port |
 | `NEXT_PUBLIC_API_BASE_URL` | `http://localhost:4000` | API base URL for frontend |
