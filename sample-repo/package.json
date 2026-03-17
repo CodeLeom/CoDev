@@ -1,0 +1,6 @@
+{
+  "name": "sample-express-api",
+  "version": "1.0.0",
+  "description": "Sample Express API with auth for CoDev demo",
+  "main": "index.js"
+}
