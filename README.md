@@ -1,6 +1,8 @@
 # CoDev — Local Developer Knowledge Copilot
 
-CoDev is a local AI developer copilot that helps developers understand a codebase and generate technical content such as articles, API docs, and Diátaxis-structured documentation entirely on-device, without sending code to any cloud AI service.
+> Fully local. No API keys. No data leaves your machine.
+
+CoDev is a local AI developer copilot that helps developers understand a codebase and generate technical content such as articles, API documentation, and Diátaxis-structured documentation entirely on-device, without sending code to any cloud AI service. CoDev is designed not just as a tool, but as a reference implementation for how to build local AI-powered developer workflows using retrieval and on-device inference.
 
 ## Features
 
@@ -10,6 +12,23 @@ CoDev is a local AI developer copilot that helps developers understand a codebas
 - **Diátaxis** — Generate documentation in tutorial, how-to, explanation, or reference style
 
 CoDev uses local retrieval over indexed repository files and runs inference locally via [Ollama](https://ollama.com) using `llama3.1:latest`. Embeddings use a local embedding model when available, with a simple local fallback for lower-dependency setups.
+
+## How It Works
+
+CoDev indexes a repository by:
+
+1. Loading and filtering source files
+2. Splitting them into chunks
+3. Generating embeddings locally
+4. Storing them for retrieval
+
+When you ask a question or generate content:
+
+- CoDev retrieves relevant code snippets
+- Passes them to the local model (`llama3.1:latest`)
+- Generates grounded outputs based on actual repository context
+
+This ensures answers are traceable and reduces hallucination.
 
 ## Why Local AI?
 
@@ -38,7 +57,7 @@ CoDev was tested locally with:
 - Node.js 18+
 - [Ollama](https://ollama.com) installed
 - Model: `llama3.1:latest`
-- Embedding model optional: `nomic-embed-text`
+- Optional embedding model: `nomic-embed-text`
 
 ### Install
 
@@ -47,7 +66,7 @@ git clone <this-repo>
 cd CoDev
 npm install
 cp .env.example .env
-````
+```
 
 ### Ollama Setup
 
@@ -87,10 +106,10 @@ npm run dev:server
 npm run dev:web
 ```
 
-## Index a Repository
+## Index a Project Folder
 
 1. Open `http://localhost:3000`
-2. Enter the **absolute path** to a repository
+2. Enter the **absolute path** to a folder
 3. Click **Index**
 4. Once indexing completes, choose a mode and submit a prompt
 
@@ -124,7 +143,18 @@ sample-repo
 * "Generate docs for the authentication endpoints"
 * "Document the /login and /register routes"
 
-### Diátaxis
+## Diátaxis
+
+CoDev supports the Diátaxis documentation framework, allowing the same codebase context to be transformed into different types of documentation:
+
+- **Tutorial** — learning-oriented, step-by-step
+- **How-to** — task-oriented and practical
+- **Explanation** — conceptual understanding and rationale
+- **Reference** — structured, factual lookup
+
+This ensures generated documentation is fit for purpose, not one-size-fits-all.
+
+### Example Prompts
 
 * "Create a tutorial for using the auth module"
 * "Write a how-to for adding JWT auth to a route"
@@ -143,6 +173,26 @@ A basic Express API is included in `sample-repo/` for demos and testing. It incl
 | POST   | `/api/index`    | Index a repository with `{ "repoPath": "/path" }`                                |
 | POST   | `/api/ask`      | Ask a repository question with `{ "query": "..." }`                              |
 | POST   | `/api/generate` | Generate content with `{ "mode": "...", "query": "...", "diataxisType": "..." }` |
+
+## Common Issues
+
+### Ollama not running
+
+### Model not found
+
+```bash
+ollama pull llama3.1:latest
+```
+
+### Empty or poor results
+
+- Ensure the folder was indexed successfully
+- Try increasing `TOP_K` in `.env`
+- Avoid indexing large generated folders (e.g. `dist`, `build`, `coverage`)
+
+### Slow responses
+
+Local inference depends on machine performance. Close other heavy applications if needed.
 
 ## Notes
 
