@@ -90,7 +90,7 @@ CoDev/
 
 ## If You Join This Project
 
-1. Start with `src/server/index.ts` to see how the API is wired.
+1. Start with `src/server/index.ts` to see how the API is structured.
 2. Follow `POST /api/index` → `indexingService` → `repoLoader` + `chunker` + `embeddingService`.
 3. Follow `POST /api/ask` → `retrievalService` → `promptRouter` → `ollamaService`.
 4. Inspect `promptRouter.ts` for the exact prompt templates.
