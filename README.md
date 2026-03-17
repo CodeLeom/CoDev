@@ -190,6 +190,14 @@ A basic Express API is included in `sample-repo/` for demos and testing. It incl
 
 ### Ollama not running
 
+If you start the CoDev, then you try to ask a question and it return `fetch failed`, it means Ollama is not running.
+
+> Make sure Ollama is running locally: Open your terminal and run the command below
+
+```bash
+ollama serve
+```
+
 ### Model not found
 
 ```bash
