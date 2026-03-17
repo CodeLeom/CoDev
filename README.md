@@ -30,6 +30,18 @@ When you ask a question or generate content:
 
 This ensures answers are traceable and reduces hallucination.
 
+## Documentation
+
+Developer documentation for understanding and reproducing CoDev:
+
+- [Overview](docs/overview.md) — What CoDev is and who it's for
+- [Architecture](docs/architecture.md) — How the system works end-to-end
+- [Setup](docs/setup.md) — Prerequisites and install instructions
+- [Walkthrough](docs/walkthrough.md) — Step-by-step implementation guide
+- [Code Structure](docs/code-structure.md) — Navigate the codebase
+- [Extending](docs/extending.md) — Add file types, modes, and features
+- [Diátaxis](docs/diataxis.md) — Documentation framework in CoDev
+
 ## Why Local AI?
 
 - **Privacy** — Your code stays on your machine
