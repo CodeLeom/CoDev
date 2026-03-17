@@ -3,9 +3,9 @@
 ## Prerequisites
 
 - **Node.js 18+**
-- **Ollama** — [ollama.com](https://ollama.com)
-- **Model** — `llama3.1:latest`
-- **Optional** — `nomic-embed-text` for embeddings (fallback works without it)
+- **Ollama**: [ollama.com](https://ollama.com)
+- **Model**: `llama3.1:latest`
+- **Optional**: `nomic-embed-text` for embeddings (fallback works without it)
 
 ## Quick Start
 
@@ -72,8 +72,8 @@ npm run dev
 
 This starts:
 
-- **Backend** — http://localhost:4000
-- **Frontend** — http://localhost:3000
+- **Backend**: http://localhost:4000
+- **Frontend**: http://localhost:3000
 
 ### 5. First Run
 

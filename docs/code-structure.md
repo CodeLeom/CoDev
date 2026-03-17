@@ -23,10 +23,10 @@ CoDev/
 
 | File | Responsibility |
 |------|----------------|
-| `health.ts` | `GET /api/health` — Server and Ollama status |
-| `indexRepo.ts` | `POST /api/index` — Index by path or uploaded files |
-| `ask.ts` | `POST /api/ask` — Q&A with retrieved context |
-| `generate.ts` | `POST /api/generate` — Article, API Docs, Diátaxis |
+| `health.ts` | `GET /api/health`: Server and Ollama status |
+| `indexRepo.ts` | `POST /api/index`: Index by path or uploaded files |
+| `ask.ts` | `POST /api/ask`: Q&A with retrieved context |
+| `generate.ts` | `POST /api/generate`: Article, API Docs, Diátaxis |
 
 ### Services (`src/server/services/`)
 
@@ -49,7 +49,7 @@ CoDev/
 
 ### Data
 
-- `src/server/data/` — Stores `index.json` (chunks + embeddings). Gitignored.
+- `src/server/data/`: Stores `index.json` (chunks + embeddings). Gitignored.
 
 ---
 

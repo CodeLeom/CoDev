@@ -17,7 +17,7 @@ Keep `repoLoader` path validation and `shouldIgnorePath` in sync if you change s
 
 ## Add a New Generation Mode
 
-1. **Create the prompt** — In `src/server/services/promptRouter.ts`:
+1. **Create the prompt**: In `src/server/services/promptRouter.ts`:
 
 ```ts
 export function buildMyModePrompt(query: string, chunks: RetrievedChunk[]): string {
@@ -31,8 +31,8 @@ Your custom instructions here...`;
 }
 ```
 
-2. **Register it** — Add to the `promptRouter` object and the switch in `generate.ts`.
-3. **Frontend** — Add the mode to `ModeSelector.tsx` and handle it in `page.tsx`.
+2. **Register it**: Add to the `promptRouter` object and the switch in `generate.ts`.
+3. **Frontend**: Add the mode to `ModeSelector.tsx` and handle it in `page.tsx`.
 
 ---
 
@@ -55,13 +55,13 @@ ollama pull llama3.2:latest
 
 ## Improve Retrieval
 
-**Increase context** — Bump `TOP_K` in `.env` (more chunks = more context, larger prompts).
+**Increase context**: Bump `TOP_K` in `.env` (more chunks = more context, larger prompts).
 
-**Better embeddings** — Use a stronger embedding model if Ollama supports it; ensure fallback behavior is acceptable.
+**Better embeddings**: Use a stronger embedding model if Ollama supports it; ensure fallback behavior is acceptable.
 
-**Reranking** — Add a second pass that scores or filters the top-k before building the prompt (e.g., by relevance heuristics).
+**Reranking**: Add a second pass that scores or filters the top-k before building the prompt (e.g., by relevance heuristics).
 
-**Hybrid search** — Combine embeddings with keyword/BM25 for exact matches on names and identifiers.
+**Hybrid search**: Combine embeddings with keyword/BM25 for exact matches on names and identifiers.
 
 ---
 
