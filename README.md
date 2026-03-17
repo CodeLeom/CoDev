@@ -153,5 +153,3 @@ A basic Express API is included in `sample-repo/` for demos and testing. It incl
 ## License
 
 MIT
-
-````
