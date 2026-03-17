@@ -1,26 +1,122 @@
+Strong build. The README is already solid. It explains value, setup, and usage clearly.
+
+A few things should be tightened before you submit.
+
+## Biggest issue: model tag inconsistency
+
+At the top you say:
+
+```md
+llama3.1:latest
+```
+
+But the environment table says:
+
+```md
+OLLAMA_MODEL = llama3.1:8b
+```
+
+Pick one and use it everywhere.
+
+Since your machine already has `llama3.1:latest`, the safest choice is to standardize on:
+
+```md
+llama3.1:latest
+```
+
+That avoids setup friction for reviewers.
+
+---
+
+## Recommended fixes
+
+### 1. Improve wording
+
+A few small edits:
+
+* “technical contents” → **technical content**
+* “this is avalaible” → **this is available**
+* “entirely on-device” is good, keep it
+* “Runs well on 16GB+ RAM” is okay, but “on my MacBook Pro M4 Pro” is better framed as your tested environment, not a general requirement
+
+### 2. Clarify relative path behavior
+
+This line is currently awkward:
+
+> or `./sample-repo` this is avalaible in this codebase, so, it is relative to the project root
+
+Rewrite it more cleanly.
+
+### 3. Make fallback behavior explicit
+
+This line is good, but could be slightly more precise:
+
+> Embeddings use a local model (or a simple fallback when unavailable).
+
+You can say it falls back to a local keyword-based or simple similarity approach if that is what you actually implemented. Be exact.
+
+### 4. Add a “tested on” note
+
+This helps credibility.
+
+Example:
+
+* Tested on macOS
+* Ollama running locally
+* `llama3.1:latest`
+* Node 18+
+
+### 5. Add one screenshot
+
+Since the UI is working, include one screenshot near the top. That helps immediately.
+
+### 6. Mention grounded outputs
+
+That is one of the strongest parts of your app. Say it explicitly:
+
+* retrieves relevant code chunks
+* includes source file paths
+* stays grounded in indexed repository context
+
+---
+
+## Revised README
+
+Here is a cleaner version you can use.
+
+````md
 # CoDev — Local Developer Knowledge Copilot
 
-CoDev is a local AI developer copilot that helps you understand a codebase and generate technical contents such as articles, API docs, and Diátaxis-structured documentation, **entirely on-device** without sending code to any cloud AI service.
+CoDev is a local AI developer copilot that helps developers understand a codebase and generate technical content such as articles, API docs, and Diátaxis-structured documentation entirely on-device, without sending code to any cloud AI service.
 
 ## Features
 
 - **Ask** — Chat with your indexed codebase
-- **Article** — Generate technical articles from the codebase context
+- **Article** — Generate technical articles from repository context
 - **API Docs** — Generate structured API reference documentation
 - **Diátaxis** — Generate documentation in tutorial, how-to, explanation, or reference style
 
-All inference runs locally via [Ollama](https://ollama.com) using `llama3.1:latest`. Embeddings use a local model (or a simple fallback when unavailable).
+CoDev uses local retrieval over indexed repository files and runs inference locally via [Ollama](https://ollama.com) using `llama3.1:latest`. Embeddings use a local embedding model when available, with a simple local fallback for lower-dependency setups.
 
 ## Why Local AI?
 
-- **Privacy** — Your code never leaves your machine
-- **No API costs** — Run as much as you like
-- **Offline-capable** — Work without internet
-- **Reproducible** — Same setup everywhere
+- **Privacy** — Your code stays on your machine
+- **No API costs** — No usage-based cloud billing
+- **Offline-capable** — Useful without internet access after setup
+- **Reproducible** — Easy to run locally with a consistent setup
 
-## Why llama3.1:latest?
+## Why `llama3.1:latest`?
 
-A good balance of quality and speed for my laptop (MacBook Pro M4 Pro). Runs well on 16GB+ RAM. Easy to swap for another Ollama model if needed.
+`llama3.1:latest` provides a good balance of output quality and local performance for this project. It works well for codebase Q&A, documentation drafting, and structured developer-facing outputs, while remaining simple to run through Ollama.
+
+## Tested Environment
+
+CoDev was tested locally with:
+
+- macOS
+- Node.js 18+
+- Ollama running locally
+- `llama3.1:latest`
 
 ## Local Setup
 
@@ -29,7 +125,7 @@ A good balance of quality and speed for my laptop (MacBook Pro M4 Pro). Runs wel
 - Node.js 18+
 - [Ollama](https://ollama.com) installed
 - Model: `llama3.1:latest`
-- Embedding model (optional): `nomic-embed-text`
+- Embedding model optional: `nomic-embed-text`
 
 ### Install
 
@@ -38,7 +134,7 @@ git clone <this-repo>
 cd CoDev
 npm install
 cp .env.example .env
-```
+````
 
 ### Ollama Setup
 
@@ -47,87 +143,102 @@ ollama pull llama3.1:latest
 ollama pull nomic-embed-text
 ```
 
-If `nomic-embed-text` is not available, CoDev falls back to a simple local embedding method (lower quality but functional).
+If `nomic-embed-text` is unavailable, CoDev falls back to a simpler local embedding strategy. Output quality may be lower, but the app remains functional.
 
-### Environment
+## Environment
 
 Edit `.env` if needed:
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `OLLAMA_BASE_URL` | `http://localhost:11434` | Ollama API URL |
-| `OLLAMA_MODEL` | `llama3.1:latest` | LLM model for generation |
-| `OLLAMA_EMBEDDING_MODEL` | `nomic-embed-text` | Embedding model |
-| `SERVER_PORT` | `4000` | Express API port |
-| `NEXT_PUBLIC_API_BASE_URL` | `http://localhost:4000` | API base URL for frontend |
-| `TOP_K` | `5` | Number of chunks to retrieve |
+| Variable                   | Default                  | Description                   |
+| -------------------------- | ------------------------ | ----------------------------- |
+| `OLLAMA_BASE_URL`          | `http://localhost:11434` | Ollama API URL                |
+| `OLLAMA_MODEL`             | `llama3.1:latest`        | Local LLM used for generation |
+| `OLLAMA_EMBEDDING_MODEL`   | `nomic-embed-text`       | Embedding model               |
+| `SERVER_PORT`              | `4000`                   | Express API port              |
+| `NEXT_PUBLIC_API_BASE_URL` | `http://localhost:4000`  | API base URL for frontend     |
+| `TOP_K`                    | `5`                      | Number of chunks to retrieve  |
 
-### Run
+## Run
 
 ```bash
 npm run dev
 ```
 
-- **Backend**: http://localhost:4000
-- **Frontend**: http://localhost:3000
+* **Backend:** `http://localhost:4000`
+* **Frontend:** `http://localhost:3000`
 
-Or run separately:
+Or run them separately:
 
 ```bash
 npm run dev:server
 npm run dev:web
 ```
 
-### Index a Repository
+## Index a Repository
 
-1. Open http://localhost:3000
-2. Enter the **absolute path** to a repository (e.g. `/Users/you/projects/my-app` or `./sample-repo` this is avalaible in this codebase, so, it is relative to the project root)
+1. Open `http://localhost:3000`
+2. Enter the **absolute path** to a repository
 3. Click **Index**
-4. Once indexed, select a mode and ask questions or generate content
+4. Once indexing completes, choose a mode and submit a prompt
 
-### Example Paths
+You can also use the included sample repository.
+
+## Example Paths
 
 ```text
 # macOS / Linux
 /Users/yourname/Desktop/CoDev/sample-repo
 
-# Or relative to where the server runs (project root)
+# Relative to the project root
 sample-repo
 ```
 
 ## Example Prompts
 
-**Ask**
-- "Explain how authentication works in this repository"
-- "Which files define the billing flow?"
-- "Summarize the architecture of this project"
+### Ask
 
-**Article**
-- "Write a beginner-friendly overview of this project"
-- "Draft an article introducing this API to new developers"
+* "Explain how authentication works in this repository"
+* "Which files define the billing flow?"
+* "Summarize the architecture of this project"
 
-**API Docs**
-- "Generate docs for the authentication endpoints"
-- "Document the /login and /register routes"
+### Article
 
-**Diátaxis**
-- "Create a tutorial for using the auth module"
-- "Write a how-to for adding JWT auth to a route"
-- "Explain why the middleware stack is structured this way"
-- "Generate reference docs for the auth controller"
+* "Write a beginner-friendly overview of this project"
+* "Draft an article introducing this API to new developers"
+
+### API Docs
+
+* "Generate docs for the authentication endpoints"
+* "Document the /login and /register routes"
+
+### Diátaxis
+
+* "Create a tutorial for using the auth module"
+* "Write a how-to for adding JWT auth to a route"
+* "Explain why the middleware stack is structured this way"
+* "Generate reference docs for the auth controller"
 
 ## Sample Repo
 
-A small Express API is included at `sample-repo/` for demos. It has auth routes, users routes, middleware, and controller/service separation.
+A basic Express API is included in `sample-repo/` for demos and testing. It includes auth routes, user routes, middleware, and controller/service separation.
 
 ## API Endpoints
 
-| Method | Path | Description |
-|--------|------|-------------|
-| GET | `/api/health` | Server and Ollama health |
-| POST | `/api/index` | Index a repository (`{ "repoPath": "/path" }`) |
-| POST | `/api/ask` | Ask a question (`{ "query": "..." }`) |
-| POST | `/api/generate` | Generate content (`{ "mode", "query", "diataxisType" }`) |
+| Method | Path            | Description                                                                      |
+| ------ | --------------- | -------------------------------------------------------------------------------- |
+| GET    | `/api/health`   | Server and Ollama health check                                                   |
+| POST   | `/api/index`    | Index a repository with `{ "repoPath": "/path" }`                                |
+| POST   | `/api/ask`      | Ask a repository question with `{ "query": "..." }`                              |
+| POST   | `/api/generate` | Generate content with `{ "mode": "...", "query": "...", "diataxisType": "..." }` |
+
+## Notes
+
+* CoDev is designed for local developer workflows and small-to-medium repositories
+* Outputs are grounded in retrieved repository context
+* Source file paths are returned to improve trust and traceability
 
 ## License
+
 MIT
+
+````
